@@ -40,11 +40,11 @@ async def pwm_boundary_test(dut):
         cocotb.log.info(f"[TEST] Sampling PWM0 for {target_duty}% duty cycle (10k cycles)...")
         
         sample_cycles = 10000
-        prev_pwm = int(dut.uut.mprj.mprj.io_out[0].value)
+        prev_pwm = int(caravelEnv.monitor_gpio(0, 0))
         
         for _ in range(sample_cycles):
             await cocotb.triggers.RisingEdge(caravelEnv.clk)
-            pwm_val = int(dut.uut.mprj.mprj.io_out[0].value)
+            pwm_val = int(caravelEnv.monitor_gpio(0, 0))
             
             if pwm_val == 1:
                 pwm_high_count += 1
