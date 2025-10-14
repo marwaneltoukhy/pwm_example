@@ -27,7 +27,7 @@ async def pwm_duty_sweep_test(dut):
         await caravelEnv.wait_mgmt_gpio(1)
         cocotb.log.info(f"[TEST] ✓ mgmt_gpio=1: PWM configuration stable, ready to measure")
         
-        await cocotb.triggers.ClockCycles(caravelEnv.clk, 1000)
+        await cocotb.triggers.ClockCycles(caravelEnv.clk, 5000)
         
         pwm_high_count = 0
         pwm_low_count = 0
