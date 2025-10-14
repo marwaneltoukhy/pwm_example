@@ -17,7 +17,7 @@
 -v $(USER_PROJECT_VERILOG)/rtl/user_project_wrapper.v
 -v $(USER_PROJECT_VERILOG)/rtl/wb_bus_splitter.v
 
-# CF_TMR32 IP
+# CF_TMR32 IP (using fixed version)
 -v $(USER_PROJECT_VERILOG)/../ip/CF_IP_UTIL/hdl/cf_util_lib.v
--v $(USER_PROJECT_VERILOG)/../ip/CF_TMR32/hdl/rtl/CF_TMR32.v
+-v $(USER_PROJECT_VERILOG)/rtl/CF_TMR32_fixed.v
 -v $(USER_PROJECT_VERILOG)/../ip/CF_TMR32/hdl/rtl/bus_wrappers/CF_TMR32_WB.v
