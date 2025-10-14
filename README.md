@@ -48,11 +48,41 @@ caravel_cocotb -t pwm_simple_test -tag test_run
 ```
 
 ### Test Results
+
+#### 1. PWM Simple Test ✅
 ```
 Test: RTL-pwm_simple_test
-Status: PASSED ✅
+Status: PASSED
 PWM0 duty cycle: 49.0% (expected 50%)
-PWM0 high count: 2450, low count: 2550
+Tolerance: ±10%
+```
+
+#### 2. Four-Channel PWM Test ✅
+```
+Test: RTL-pwm_four_channel_test
+Status: PASSED
+PWM0 (25%): Measured 25.0% ✓
+PWM1 (50%): Measured 49.0% ✓
+PWM2 (75%): Measured 74.0% ✓
+PWM3 (90%): Measured 89.0% ✓
+Tolerance: ±2%
+```
+
+#### 3. PWM Duty Cycle Sweep Test ✅
+```
+Test: RTL-pwm_duty_sweep_test
+Status: PASSED
+Tests dynamic duty cycle reconfiguration
+Results:
+  10% → Measured 9.7% ✓
+  25% → Measured 24.0% ✓
+  50% → Measured 49.0% ✓
+  75% → Measured 74.0% ✓
+  90% → Measured 89.0% ✓
+Tolerance: ±2%
+
+Key Learning: Dynamic CMPX reconfiguration requires:
+  disable() → setCMPX() → restart() → enable()
 ```
 
 ## Directory Structure
