@@ -1,12 +1,13 @@
 #include <firmware_apis.h>
 #include <CF_TMR32.h>
 
-#define PWM0_BASE_ADDR 0x30000000
-#define PWM1_BASE_ADDR 0x30010000
-#define PWM2_BASE_ADDR 0x30020000
-#define PWM3_BASE_ADDR 0x30030000
+#define PWM0_BASE_ADDR ((CF_TMR32_TYPE_PTR)0x30000000)
+#define PWM1_BASE_ADDR ((CF_TMR32_TYPE_PTR)0x30010000)
+#define PWM2_BASE_ADDR ((CF_TMR32_TYPE_PTR)0x30020000)
+#define PWM3_BASE_ADDR ((CF_TMR32_TYPE_PTR)0x30030000)
 
-void configure_pwm_channel(uint32_t base_addr, uint32_t cmpx_value) {
+void configure_pwm_channel(CF_TMR32_TYPE_PTR base_addr, uint32_t cmpx_value) {
+    CF_TMR32_setGclkEnable(base_addr, 1);
     CF_TMR32_setPR(base_addr, 9);
     CF_TMR32_setRELOAD(base_addr, 100);
     CF_TMR32_setCMPX(base_addr, cmpx_value);
@@ -21,13 +22,17 @@ void configure_pwm_channel(uint32_t base_addr, uint32_t cmpx_value) {
     CF_TMR32_restart(base_addr);
 }
 
-void main() {
+void main(void) {
     ManagmentGpio_outputEnable();
     ManagmentGpio_write(0);
     
     enableHkSpi(0);
     
-    GPIOs_configure(0, GPIO_MODE_MGMT_STD_OUTPUT);
+    GPIOs_configure(0, GPIO_MODE_USER_STD_OUTPUT);
+    GPIOs_configure(1, GPIO_MODE_USER_STD_OUTPUT);
+    GPIOs_configure(2, GPIO_MODE_USER_STD_OUTPUT);
+    GPIOs_configure(3, GPIO_MODE_USER_STD_OUTPUT);
+    
     GPIOs_loadConfigs();
     
     User_enableIF();

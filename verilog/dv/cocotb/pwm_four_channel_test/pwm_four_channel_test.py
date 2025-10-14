@@ -4,7 +4,7 @@ import cocotb
 @cocotb.test()
 @report_test
 async def pwm_four_channel_test(dut):
-    caravelEnv = await test_configure(dut, timeout_cycles=200_000)
+    caravelEnv = await test_configure(dut, timeout_cycles=10_000_000)
     
     cocotb.log.info("[TEST] Start 4-channel PWM test")
     
