@@ -39,13 +39,15 @@ void main(void) {
     ManagmentGpio_write(1);
     
     for(int i = 0; i < 5; i++) {
+        CF_TMR32_disable(PWM0_BASE_ADDR);
         CF_TMR32_setCMPX(PWM0_BASE_ADDR, duty_cycles[i]);
         CF_TMR32_restart(PWM0_BASE_ADDR);
+        CF_TMR32_enable(PWM0_BASE_ADDR);
         
         ManagmentGpio_write(0);
-        delay(100);
+        delay(1000);
         ManagmentGpio_write(1);
-        delay(100);
+        delay(1000);
     }
     
     while(1);
