@@ -24,7 +24,7 @@ void main(void)
     
     CF_TMR32_setCMPX(PWM0_BASE_ADDR, 50);
     
-    CF_TMR32_setCMPY(PWM0_BASE_ADDR, 0);
+    CF_TMR32_setCMPY(PWM0_BASE_ADDR, 200);
     
     CF_TMR32_setUpCount(PWM0_BASE_ADDR);
     CF_TMR32_setPeriodic(PWM0_BASE_ADDR);
