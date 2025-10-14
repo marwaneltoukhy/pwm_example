@@ -1,9 +1,9 @@
 CARAVEL_ROOT: /nc/templates/caravel
-MCW_ROOT: /nc/templates/caravel
+MCW_ROOT: /nc/templates/mgmt_core_wrapper
 PDK: sky130A
 PDK_ROOT: /nc/apps/pdk
 USER_PROJECT_ROOT: /workspace/pwm_example
 caravan: false
-clk: 25
+clk_period_ns: 25
 emailto:
 - null
