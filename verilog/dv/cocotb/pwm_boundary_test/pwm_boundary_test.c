@@ -1,4 +1,5 @@
 #include <firmware_apis.h>
+#include <CF_TMR32.h>
 
 #define PWM0_BASE_ADDR 0x30000000
 
@@ -13,8 +14,9 @@ void main() {
     ManagmentGpio_write(0);
     
     GPIOs_loadConfigs();
-    GPIOs_enableManagment(0);
     User_enableIF();
+    
+    ManagmentGpio_write(1);
     
     uint32_t test_cases[] = {0, 1, 99, 100};
     
