@@ -41,10 +41,11 @@ void main(void) {
         CF_TMR32_restart(PWM0_BASE_ADDR);
         CF_TMR32_enable(PWM0_BASE_ADDR);
         
-        delay(1000000);
+        ManagmentGpio_write(0);
+        delay(100);
+        ManagmentGpio_write(1);
+        delay(100);
     }
-    
-    ManagmentGpio_write(0);
     
     while(1);
 }
