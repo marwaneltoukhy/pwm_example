@@ -1,7 +1,7 @@
 #include <firmware_apis.h>
 #include <CF_TMR32.h>
 
-#define PWM0_BASE_ADDR 0x30000000
+#define PWM0_BASE_ADDR ((CF_TMR32_TYPE_PTR)0x30000000)
 
 void delay(int cycles) {
     for (int i = 0; i < cycles; i++) {
