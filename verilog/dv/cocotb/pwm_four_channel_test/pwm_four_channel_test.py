@@ -1,5 +1,6 @@
 from caravel_cocotb.caravel_interfaces import test_configure, report_test
 import cocotb
+import cocotb.triggers
 
 @cocotb.test()
 @report_test
