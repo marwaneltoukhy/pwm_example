@@ -7,3 +7,4 @@ from user_proj_tests.counter_la_clk.counter_la_clk import counter_la_clk
 from gpio_test.gpio_test import gpio_test
 from pwm_test.pwm_test import pwm_test
 from pwm_simple_test.pwm_simple_test import pwm_simple_test
+from pwm_four_channel_test.pwm_four_channel_test import pwm_four_channel_test
