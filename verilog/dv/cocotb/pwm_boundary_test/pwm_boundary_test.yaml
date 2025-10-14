@@ -1,0 +1,5 @@
+---
+tests:
+  - name: pwm_boundary_test
+    description: "PWM boundary test - edge cases (0%, 1%, 99%, 100%)"
+    timeout_cycles: 10000000
