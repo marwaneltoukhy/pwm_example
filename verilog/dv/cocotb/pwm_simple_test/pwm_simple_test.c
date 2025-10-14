@@ -1,19 +1,7 @@
 #include <firmware_apis.h>
+#include <CF_TMR32.h>
 
-#define PWM0_BASE_ADDR 0x30000000
-
-#define TMR_REG_OFFSET        0x0000
-#define RELOAD_REG_OFFSET     0x0004
-#define PR_REG_OFFSET         0x0008
-#define CMPX_REG_OFFSET       0x000C
-#define CMPY_REG_OFFSET       0x0010
-#define CTRL_REG_OFFSET       0x0014
-#define CFG_REG_OFFSET        0x0018
-#define PWM0CFG_REG_OFFSET    0x001C
-#define PWM1CFG_REG_OFFSET    0x0020
-#define GCLK_REG_OFFSET       0x0030
-
-#define REG32(addr) *((volatile uint32_t *)(addr))
+#define PWM0_BASE_ADDR ((CF_TMR32_TYPE_PTR)0x30000000)
 
 void main(void)
 {
@@ -26,21 +14,26 @@ void main(void)
     
     User_enableIF();
     
-    REG32(PWM0_BASE_ADDR + GCLK_REG_OFFSET) = 0x1;
+    CF_TMR32_setGclkEnable(PWM0_BASE_ADDR, 1);
     
-    REG32(PWM0_BASE_ADDR + PR_REG_OFFSET) = 9;
+    CF_TMR32_setPrescaler(PWM0_BASE_ADDR, 9);
     
-    REG32(PWM0_BASE_ADDR + RELOAD_REG_OFFSET) = 100;
+    CF_TMR32_setReload(PWM0_BASE_ADDR, 100);
     
-    REG32(PWM0_BASE_ADDR + CMPX_REG_OFFSET) = 50;
+    CF_TMR32_setCMPX(PWM0_BASE_ADDR, 50);
     
-    REG32(PWM0_BASE_ADDR + CMPY_REG_OFFSET) = 0;
+    CF_TMR32_setCMPY(PWM0_BASE_ADDR, 0);
     
-    REG32(PWM0_BASE_ADDR + CFG_REG_OFFSET) = 0x3;
+    CF_TMR32_setUpCount(PWM0_BASE_ADDR);
+    CF_TMR32_setPeriodic(PWM0_BASE_ADDR);
     
-    REG32(PWM0_BASE_ADDR + PWM0CFG_REG_OFFSET) = 0x042;
+    CF_TMR32_setPWM0MatchingZeroAction(PWM0_BASE_ADDR, CF_TMR32_ACTION_HIGH);
+    CF_TMR32_setPWM0MatchingCMPXUpCountAction(PWM0_BASE_ADDR, CF_TMR32_ACTION_LOW);
     
-    REG32(PWM0_BASE_ADDR + CTRL_REG_OFFSET) = 0x3;
+    CF_TMR32_PWM0Enable(PWM0_BASE_ADDR);
+    
+    CF_TMR32_enable(PWM0_BASE_ADDR);
+    CF_TMR32_restart(PWM0_BASE_ADDR);
     
     ManagmentGpio_write(1);
     
