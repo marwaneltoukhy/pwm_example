@@ -16,10 +16,10 @@ async def pwm_test(dut):
     
     await ClockCycles(caravelEnv.clk, 2000)
     
-    pwm0_state = dut.uut.mprj.io_out[0].value.integer
-    pwm1_state = dut.uut.mprj.io_out[1].value.integer
-    pwm2_state = dut.uut.mprj.io_out[2].value.integer
-    pwm3_state = dut.uut.mprj.io_out[3].value.integer
+    pwm0_state = caravelEnv.monitor_gpio(0, 0).integer
+    pwm1_state = caravelEnv.monitor_gpio(1, 1).integer
+    pwm2_state = caravelEnv.monitor_gpio(2, 2).integer
+    pwm3_state = caravelEnv.monitor_gpio(3, 3).integer
     
     cocotb.log.info(f"[TEST] PWM0 output: {pwm0_state}")
     cocotb.log.info(f"[TEST] PWM1 output: {pwm1_state}")
@@ -32,8 +32,8 @@ async def pwm_test(dut):
     low_count_pwm1 = 0
     
     for i in range(1000):
-        pwm0_val = dut.uut.mprj.io_out[0].value.integer
-        pwm1_val = dut.uut.mprj.io_out[1].value.integer
+        pwm0_val = caravelEnv.monitor_gpio(0, 0).integer
+        pwm1_val = caravelEnv.monitor_gpio(1, 1).integer
         
         if pwm0_val == 1:
             high_count_pwm0 += 1

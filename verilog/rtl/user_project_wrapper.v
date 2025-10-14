@@ -113,6 +113,9 @@ module user_project_wrapper #(
 
     localparam [BITS-1:0] ADDR_MASK = 32'hFFFF_0000;    // Mask for 4KB regions
 
+    // Internal wire for bus splitter error (not connected to wrapper output)
+    wire bus_splitter_err;
+
     // Wishbone Bus Splitter Instance
     wishbone_bus_splitter bus_splitter_inst (
         .clk(wb_clk_i),
@@ -125,7 +128,7 @@ module user_project_wrapper #(
         .m_wb_cyc(wbs_cyc_i),
         .m_wb_stb(wbs_stb_i),
         .m_wb_ack(wbs_ack_o),
-        .m_wb_err(wbs_err_o),
+        .m_wb_err(bus_splitter_err),
         .s_wb_adr_0(s_wb_adr_0),
         .s_wb_dat_w_0(s_wb_dat_w_0),
         .s_wb_dat_r_0(s_wb_dat_r_0),
