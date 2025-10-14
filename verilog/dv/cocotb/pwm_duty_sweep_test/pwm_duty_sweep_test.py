@@ -5,7 +5,7 @@ import cocotb.triggers
 @cocotb.test()
 @report_test
 async def pwm_duty_sweep_test(dut):
-    caravelEnv = await test_configure(dut, timeout_cycles=20_000_000)
+    caravelEnv = await test_configure(dut, timeout_cycles=50_000_000)
     
     cocotb.log.info("[TEST] Start PWM duty cycle sweep test")
     
