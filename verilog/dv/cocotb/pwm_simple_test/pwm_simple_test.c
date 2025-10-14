@@ -16,9 +16,9 @@ void main(void)
     
     CF_TMR32_setGclkEnable(PWM0_BASE_ADDR, 1);
     
-    CF_TMR32_setPrescaler(PWM0_BASE_ADDR, 9);
+    CF_TMR32_setPR(PWM0_BASE_ADDR, 9);
     
-    CF_TMR32_setReload(PWM0_BASE_ADDR, 100);
+    CF_TMR32_setRELOAD(PWM0_BASE_ADDR, 100);
     
     CF_TMR32_setCMPX(PWM0_BASE_ADDR, 50);
     
