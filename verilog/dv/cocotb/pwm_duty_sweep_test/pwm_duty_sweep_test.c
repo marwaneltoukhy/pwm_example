@@ -21,7 +21,7 @@ void main(void) {
     
     CF_TMR32_setGclkEnable(PWM0_BASE_ADDR, 1);
     CF_TMR32_setPR(PWM0_BASE_ADDR, 9);
-    CF_TMR32_setRELOAD(PWM0_BASE_ADDR, 100);
+    CF_TMR32_setRELOAD(PWM0_BASE_ADDR, 200);
     CF_TMR32_setCMPY(PWM0_BASE_ADDR, 200);
     CF_TMR32_setUpCount(PWM0_BASE_ADDR);
     CF_TMR32_setPeriodic(PWM0_BASE_ADDR);
