@@ -21,7 +21,7 @@ void main(void) {
     
     CF_TMR32_setGclkEnable(PWM0_BASE_ADDR, 1);
     CF_TMR32_setPR(PWM0_BASE_ADDR, 9);
-    CF_TMR32_setRELOAD(PWM0_BASE_ADDR, 200);
+    CF_TMR32_setRELOAD(PWM0_BASE_ADDR, 100);
     CF_TMR32_setCMPY(PWM0_BASE_ADDR, 200);
     CF_TMR32_setUpCount(PWM0_BASE_ADDR);
     CF_TMR32_setPeriodic(PWM0_BASE_ADDR);
@@ -31,6 +31,8 @@ void main(void) {
     CF_TMR32_setPWM0MatchingRELOADAction(PWM0_BASE_ADDR, CF_TMR32_ACTION_LOW);
     
     CF_TMR32_PWM0Enable(PWM0_BASE_ADDR);
+    CF_TMR32_enable(PWM0_BASE_ADDR);
+    CF_TMR32_restart(PWM0_BASE_ADDR);
     
     uint8_t duty_cycles[] = {10, 25, 50, 75, 90};
     
@@ -38,8 +40,6 @@ void main(void) {
     
     for(int i = 0; i < 5; i++) {
         CF_TMR32_setCMPX(PWM0_BASE_ADDR, duty_cycles[i]);
-        CF_TMR32_restart(PWM0_BASE_ADDR);
-        CF_TMR32_enable(PWM0_BASE_ADDR);
         
         ManagmentGpio_write(0);
         delay(100);
