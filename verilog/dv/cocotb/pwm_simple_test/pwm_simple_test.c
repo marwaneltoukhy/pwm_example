@@ -8,6 +8,8 @@ void main(void)
     ManagmentGpio_outputEnable();
     ManagmentGpio_write(0);
     
+    enableHkSpi(0);
+    
     GPIOs_configure(0, GPIO_MODE_USER_STD_OUTPUT);
     
     GPIOs_loadConfigs();
