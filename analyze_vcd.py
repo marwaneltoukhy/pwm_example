@@ -111,7 +111,7 @@ def extract_signal_values(vcd_file, signal_codes, start_time=0, end_time=None, m
 
 
 if __name__ == '__main__':
-    vcd_file = '/workspace/pwm_example/verilog/dv/cocotb/sim/pwm_simple_run4/RTL-pwm_simple_test/waves.vcd'
+    vcd_file = '/workspace/pwm_example/verilog/dv/cocotb/sim/pwm_simple_run5/RTL-pwm_simple_test/waves.vcd'
     
     # Signals to check (in order of signal path)
     # Hierarchy: caravel_top.uut.chip_core.mprj.*
