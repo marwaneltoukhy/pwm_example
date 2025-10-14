@@ -242,13 +242,15 @@ await ClockCycles(clk, 2000)        # Stabilization delay
 ### Functional Coverage
 - ✅ Single PWM channel operation
 - ✅ Multi-channel independent operation (4 channels)
-- ✅ Duty cycle range: 10% - 90%
+- ✅ Duty cycle range: 0% - 100% (full range verified)
 - ✅ Dynamic duty cycle reconfiguration
+- ✅ Edge cases: 0%, 1%, 99%, 100%
 - ✅ Wishbone bus interface (read/write)
 - ✅ Address decoding for 4 peripherals
 - ✅ PWM output generation and timing
 - ✅ Prescaler configuration
 - ✅ Timer reload configuration
+- ✅ Firmware-testbench synchronization via GPIO handshake
 
 ### Not Covered (Future Work)
 - ⏳ Different PWM frequencies (prescaler variations)
@@ -257,6 +259,8 @@ await ClockCycles(clk, 2000)        # Stabilization delay
 - ⏳ Timer capture mode
 - ⏳ Gate-level (GL) simulation
 - ⏳ Timing corner analysis
+- ⏳ Stress testing (extended duration)
+- ⏳ Bus error handling
 
 ---
 
@@ -288,13 +292,17 @@ After timer reconfiguration, PWM output requires ~1000-2000 clock cycles to stab
 ## Conclusion
 
 All implemented tests **PASS** ✅, demonstrating:
-1. Correct PWM waveform generation across duty cycle range 10%-90%
-2. Multi-channel independent operation
-3. Accurate Wishbone bus interface
+1. Correct PWM waveform generation across **full duty cycle range 0%-100%**
+2. Multi-channel independent operation (4 channels verified)
+3. Accurate Wishbone bus interface with address decoding
 4. Successful Caravel integration
-5. Robust firmware-testbench synchronization
+5. Robust firmware-testbench synchronization via GPIO handshake
+6. Dynamic duty cycle reconfiguration support
+7. Edge case handling (0%, 1%, 99%, 100% duty cycles)
 
-The project successfully integrates 4 CF_TMR32 PWM timers into the Caravel user project wrapper with full functional verification using caravel-cocotb.
+**Test Pass Rate: 4/4 (100%)** ✅
+
+The project successfully integrates 4 CF_TMR32 PWM timers into the Caravel user project wrapper with comprehensive functional verification using caravel-cocotb.
 
 ---
 
@@ -304,14 +312,17 @@ The project successfully integrates 4 CF_TMR32 PWM timers into the Caravel user 
 ```bash
 cd /workspace/pwm_example/verilog/dv/cocotb
 
-# Simple test
+# Test 1: Simple single PWM test
 caravel_cocotb -t pwm_simple_test -tag test_run
 
-# Four-channel test
+# Test 2: Four-channel integration test
 caravel_cocotb -t pwm_four_channel_test -tag test_run
 
-# Duty cycle sweep test
+# Test 3: Duty cycle sweep test (dynamic reconfiguration)
 caravel_cocotb -t pwm_duty_sweep_test -tag test_run
+
+# Test 4: Boundary test (edge cases)
+caravel_cocotb -t pwm_boundary_test -tag test_run
 ```
 
 ### View Test Results
