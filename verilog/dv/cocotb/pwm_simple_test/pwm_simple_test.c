@@ -31,6 +31,7 @@ void main(void)
     
     CF_TMR32_setPWM0MatchingZeroAction(PWM0_BASE_ADDR, CF_TMR32_ACTION_HIGH);
     CF_TMR32_setPWM0MatchingCMPXUpCountAction(PWM0_BASE_ADDR, CF_TMR32_ACTION_LOW);
+    CF_TMR32_setPWM0MatchingRELOADAction(PWM0_BASE_ADDR, CF_TMR32_ACTION_LOW);
     
     CF_TMR32_PWM0Enable(PWM0_BASE_ADDR);
     
