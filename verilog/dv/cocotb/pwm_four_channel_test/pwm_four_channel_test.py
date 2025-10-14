@@ -14,7 +14,7 @@ async def pwm_four_channel_test(dut):
     await caravelEnv.wait_mgmt_gpio(1)
     cocotb.log.info("[TEST] Configuration complete")
     
-    await caravelEnv.wait_cycles(5000)
+    await caravelEnv.wait_clk_cycles(5000)
     
     cocotb.log.info("[TEST] Sampling all 4 PWM outputs for 5000 cycles...")
     
@@ -37,7 +37,7 @@ async def pwm_four_channel_test(dut):
             
             pwm_last_values[i] = gpio_val
         
-        await caravelEnv.wait_cycles(1)
+        await caravelEnv.wait_clk_cycles(1)
     
     cocotb.log.info("[TEST] Sampling complete")
     
