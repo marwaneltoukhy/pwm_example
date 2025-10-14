@@ -5,38 +5,27 @@ import cocotb.triggers
 @cocotb.test()
 @report_test
 async def pwm_duty_sweep_test(dut):
-    caravelEnv = await test_configure(dut, timeout_cycles=10_000_000)
+    caravelEnv = await test_configure(dut, timeout_cycles=20_000_000)
     
     cocotb.log.info("[TEST] Start PWM duty cycle sweep test")
     
     await caravelEnv.release_csb()
     
-    cocotb.log.info("[TEST] Waiting for firmware configuration...")
-    await caravelEnv.wait_mgmt_gpio(1)
-    cocotb.log.info("[TEST] Configuration complete")
-    
     duty_cycles_to_test = [10, 25, 50, 75, 90]
-    
-    wb_base = 0x30000000
-    cmpx_offset = 0x10
-    tmr_offset = 0x00
-    ctrl_offset = 0x08
     
     all_passed = True
     
     for target_duty in duty_cycles_to_test:
-        cocotb.log.info(f"[TEST] Testing duty cycle: {target_duty}%")
-        
-        cmpx_value = target_duty
-        
-        await caravelEnv.write_byte(wb_base + cmpx_offset, cmpx_value)
-        
-        await caravelEnv.write_byte(wb_base + ctrl_offset, 0x01)
+        cocotb.log.info(f"[TEST] Waiting for firmware to configure {target_duty}% duty cycle...")
+        await caravelEnv.wait_mgmt_gpio(1)
+        cocotb.log.info(f"[TEST] Configuration complete for {target_duty}%")
         
         await cocotb.triggers.ClockCycles(caravelEnv.clk, 2000)
         
         pwm_high_count = 0
         pwm_low_count = 0
+        
+        cocotb.log.info(f"[TEST] Sampling PWM0 for {target_duty}% duty cycle...")
         
         for i in range(5000):
             await cocotb.triggers.ClockCycles(caravelEnv.clk, 1)
@@ -60,6 +49,12 @@ async def pwm_duty_sweep_test(dut):
         else:
             cocotb.log.error(f"[TEST]   No PWM samples collected - FAIL")
             all_passed = False
+        
+        cocotb.log.info(f"[TEST] Waiting for mgmt_gpio to go low...")
+        await caravelEnv.wait_mgmt_gpio(0)
+    
+    cocotb.log.info("[TEST] Waiting for final handshake...")
+    await caravelEnv.wait_mgmt_gpio(1)
     
     if all_passed:
         cocotb.log.info("[TEST] All duty cycle sweep tests passed - TEST PASSED")

@@ -3,6 +3,10 @@
 
 #define PWM0_BASE_ADDR ((CF_TMR32_TYPE_PTR)0x30000000)
 
+void delay(uint32_t count) {
+    for(volatile uint32_t i = 0; i < count; i++);
+}
+
 void main(void) {
     ManagmentGpio_outputEnable();
     ManagmentGpio_write(0);
@@ -27,12 +31,21 @@ void main(void) {
     CF_TMR32_setPWM0MatchingRELOADAction(PWM0_BASE_ADDR, CF_TMR32_ACTION_LOW);
     
     CF_TMR32_PWM0Enable(PWM0_BASE_ADDR);
-    CF_TMR32_enable(PWM0_BASE_ADDR);
+    
+    uint8_t duty_cycles[] = {10, 25, 50, 75, 90};
+    
+    for(int i = 0; i < 5; i++) {
+        CF_TMR32_setCMPX(PWM0_BASE_ADDR, duty_cycles[i]);
+        CF_TMR32_restart(PWM0_BASE_ADDR);
+        CF_TMR32_enable(PWM0_BASE_ADDR);
+        
+        ManagmentGpio_write(1);
+        delay(100000);
+        ManagmentGpio_write(0);
+        delay(100000);
+    }
     
     ManagmentGpio_write(1);
-    
-    CF_TMR32_setCMPX(PWM0_BASE_ADDR, 10);
-    CF_TMR32_restart(PWM0_BASE_ADDR);
     
     while(1);
 }
