@@ -85,6 +85,21 @@ Key Learning: Dynamic CMPX reconfiguration requires:
   disable() → setCMPX() → restart() → enable()
 ```
 
+#### 4. PWM Boundary Test ✅
+```
+Test: RTL-pwm_boundary_test
+Status: PASSED
+Tests edge cases for duty cycle
+Results:
+  0% → Measured 0.0% ✓
+  1% → Measured 0.7% ✓
+  99% → Measured 98.6% ✓
+  100% → Measured 100.0% ✓
+Tolerance: ±2%
+
+Verifies PWM behavior at extreme duty cycle values
+```
+
 ## Directory Structure
 
 ```

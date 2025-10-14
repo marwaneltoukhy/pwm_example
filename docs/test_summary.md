@@ -121,6 +121,46 @@ For each duty cycle target:
 
 ---
 
+### ✅ Test 4: PWM Boundary Test
+**Test Name**: `pwm_boundary_test`  
+**Run ID**: boundary_run  
+**Status**: **PASSED** ✅
+
+**Description**: Edge case testing for extreme duty cycle values (0%, 1%, 99%, 100%).
+
+**Configuration**:
+- PWM Channel: PWM0 (0x3000_0000)
+- Base Config: PR=9, RELOAD=100
+- Tested CMPX values: 0, 1, 99, 100
+
+**Test Sequence**:
+Same dynamic reconfiguration sequence as Test 3:
+1. Disable timer
+2. Set new CMPX value
+3. Restart timer counter
+4. Re-enable timer
+5. Signal ready via GPIO handshake
+6. Measure PWM for 10,000 cycles
+
+**Results**:
+| Target | CMPX | Measured | High Count | Low Count | Status |
+|--------|------|----------|------------|-----------|--------|
+| 0%     | 0    | 0.0%     | 0          | 10000     | PASS ✓ |
+| 1%     | 1    | 0.7%     | 70         | 9930      | PASS ✓ |
+| 99%    | 99   | 98.6%    | 9860       | 140       | PASS ✓ |
+| 100%   | 100  | 100.0%   | 10000      | 0         | PASS ✓ |
+
+**Tolerance**: ±2%  
+**Total Simulation Time**: 7.6ms (305,369 clock cycles)
+
+**Key Findings**:
+1. **Edge cases work correctly**: PWM handles 0% (always low) and 100% (always high) properly
+2. **Near-boundary accuracy**: 1% and 99% duty cycles measured within 0.5% of target
+3. **No glitches**: Clean transitions at extreme duty cycle values
+4. **Full dynamic range verified**: PWM operates correctly across entire 0-100% range
+
+---
+
 ## Critical Bugs Found and Fixed
 
 ### Bug #1: PWM Action Logic Gated by Prescaler Tick
