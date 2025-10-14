@@ -236,6 +236,12 @@ module user_project_wrapper #(
         .pwm_fault(pwm_fault_3)
     );
 
+    // CF_TMR32_WB modules don't have err_o, tie error signals to 0
+    assign s_wb_err_0 = 1'b0;
+    assign s_wb_err_1 = 1'b0;
+    assign s_wb_err_2 = 1'b0;
+    assign s_wb_err_3 = 1'b0;
+
     // Assign PWM outputs to IO pins (First four GPIOs)
     assign io_out[0] = pwm0_0;
     assign io_out[1] = pwm0_1;
