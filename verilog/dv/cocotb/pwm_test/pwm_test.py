@@ -14,7 +14,7 @@ async def pwm_test(dut):
     await caravelEnv.wait_mgmt_gpio(1)
     cocotb.log.info("[TEST] Configuration complete")
     
-    await ClockCycles(caravelEnv.clk, 2000)
+    await ClockCycles(caravelEnv.clk, 10000)
     
     pwm0_state = caravelEnv.monitor_gpio(0, 0).integer
     pwm1_state = caravelEnv.monitor_gpio(1, 1).integer
