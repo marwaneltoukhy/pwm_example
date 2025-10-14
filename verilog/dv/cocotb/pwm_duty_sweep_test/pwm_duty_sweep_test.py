@@ -21,10 +21,10 @@ async def pwm_duty_sweep_test(dut):
     for idx, target_duty in enumerate(duty_cycles_to_test):
         cocotb.log.info(f"[TEST] Testing {target_duty}% duty cycle...")
         
-        if idx > 0:
-            await cocotb.triggers.ClockCycles(caravelEnv.clk, 1000000)
+        if idx == 0:
+            await cocotb.triggers.ClockCycles(caravelEnv.clk, 500000)
         else:
-            await cocotb.triggers.ClockCycles(caravelEnv.clk, 100000)
+            await cocotb.triggers.ClockCycles(caravelEnv.clk, 10000000)
         
         pwm_high_count = 0
         pwm_low_count = 0
