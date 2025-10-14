@@ -6,6 +6,10 @@
 
 This project demonstrates a 4-channel PWM (Pulse Width Modulation) design integrated into the Caravel harness using the **CF_TMR32** IP core. Each PWM channel operates independently and can generate configurable duty cycles for various applications like motor control, LED dimming, or signal generation.
 
+**🚀 Quick Start**: See [QUICK_START.md](./QUICK_START.md) for running tests  
+**📚 Complete Summary**: See [docs/FINAL_SUMMARY.md](./docs/FINAL_SUMMARY.md) for full project details  
+**✅ Test Status**: **4/4 PASSING (100%)**
+
 **Original User Prompt**: "This repo has RTL for a PWM, I want to test this RTL using caravel-cocotb, also create documentation"
 
 ## Features
