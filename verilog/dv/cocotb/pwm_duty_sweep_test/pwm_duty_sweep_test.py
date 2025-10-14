@@ -19,19 +19,22 @@ async def pwm_duty_sweep_test(dut):
     all_passed = True
     
     for idx, target_duty in enumerate(duty_cycles_to_test):
-        cocotb.log.info(f"[TEST] Testing {target_duty}% duty cycle...")
+        cocotb.log.info(f"[TEST] Waiting for firmware to configure {target_duty}% duty cycle...")
         
-        if idx == 0:
-            await cocotb.triggers.ClockCycles(caravelEnv.clk, 500000)
-        else:
-            await cocotb.triggers.ClockCycles(caravelEnv.clk, 10000000)
+        await caravelEnv.wait_mgmt_gpio(0)
+        cocotb.log.info(f"[TEST] ✓ mgmt_gpio=0: firmware configuring duty cycle {target_duty}%")
+        
+        await caravelEnv.wait_mgmt_gpio(1)
+        cocotb.log.info(f"[TEST] ✓ mgmt_gpio=1: PWM configuration stable, ready to measure")
+        
+        await cocotb.triggers.ClockCycles(caravelEnv.clk, 1000)
         
         pwm_high_count = 0
         pwm_low_count = 0
         
-        cocotb.log.info(f"[TEST] Sampling PWM0 for {target_duty}% duty cycle...")
+        cocotb.log.info(f"[TEST] Sampling PWM0 for {target_duty}% duty cycle (10k cycles)...")
         
-        for i in range(5000):
+        for i in range(10000):
             await cocotb.triggers.ClockCycles(caravelEnv.clk, 1)
             gpio_val = caravelEnv.monitor_gpio(0, 0).integer
             
@@ -46,20 +49,18 @@ async def pwm_duty_sweep_test(dut):
             
             tolerance = 2.0
             if abs(measured_duty - target_duty) <= tolerance:
-                cocotb.log.info(f"[TEST]   Duty cycle {measured_duty:.1f}% is within {tolerance}% of {target_duty}% - PASS")
+                cocotb.log.info(f"[TEST]   ✓ PASS: Duty cycle {measured_duty:.1f}% within ±{tolerance}% of {target_duty}%")
             else:
-                cocotb.log.error(f"[TEST]   Duty cycle {measured_duty:.1f}% is NOT within {tolerance}% of {target_duty}% - FAIL")
+                cocotb.log.error(f"[TEST]   ✗ FAIL: Duty cycle {measured_duty:.1f}% NOT within ±{tolerance}% of {target_duty}%")
                 all_passed = False
         else:
-            cocotb.log.error(f"[TEST]   No PWM samples collected - FAIL")
+            cocotb.log.error(f"[TEST]   ✗ FAIL: No PWM samples collected")
             all_passed = False
     
-    await caravelEnv.wait_mgmt_gpio(0)
-    cocotb.log.info("[TEST] Firmware signaled completion")
-    
     if all_passed:
-        cocotb.log.info("[TEST] All duty cycle sweep tests passed - TEST PASSED")
+        cocotb.log.info("[TEST] ✓✓✓ ALL DUTY CYCLE TESTS PASSED ✓✓✓")
     else:
-        cocotb.log.error("[TEST] Some duty cycle sweep tests failed - TEST FAILED")
+        cocotb.log.error("[TEST] ✗✗✗ SOME DUTY CYCLE TESTS FAILED ✗✗✗")
+        assert False, "Duty cycle sweep test failed"
     
     cocotb.log.info("[TEST] PWM duty cycle sweep test completed")
