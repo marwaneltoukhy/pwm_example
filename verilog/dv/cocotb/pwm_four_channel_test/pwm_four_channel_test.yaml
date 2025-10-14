@@ -1,0 +1,5 @@
+---
+testbench: caravel_cocotb.caravel_interfaces
+toplevel: caravel_top
+testname: pwm_four_channel_test
+testfunction: pwm_four_channel_test
