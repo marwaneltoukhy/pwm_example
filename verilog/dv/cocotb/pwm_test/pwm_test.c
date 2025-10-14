@@ -41,12 +41,12 @@ void main() {
     
     User_enableIF();
     
-    ManagmentGpio_write(1);
-    
     configurePWM(PWM0, 9, 100, 50);
     configurePWM(PWM1, 9, 100, 25);
     configurePWM(PWM2, 9, 100, 75);
     configurePWM(PWM3, 9, 100, 90);
+    
+    ManagmentGpio_write(1);
     
     return;
 }
