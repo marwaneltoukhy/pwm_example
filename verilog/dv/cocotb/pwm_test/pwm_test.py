@@ -31,7 +31,9 @@ async def pwm_test(dut):
     high_count_pwm1 = 0
     low_count_pwm1 = 0
     
-    for i in range(1000):
+    samples = 10000
+    
+    for i in range(samples):
         pwm0_val = caravelEnv.monitor_gpio(0, 0).integer
         pwm1_val = caravelEnv.monitor_gpio(1, 1).integer
         
@@ -50,8 +52,8 @@ async def pwm_test(dut):
     cocotb.log.info(f"[TEST] PWM0 high count: {high_count_pwm0}, low count: {low_count_pwm0}")
     cocotb.log.info(f"[TEST] PWM1 high count: {high_count_pwm1}, low count: {low_count_pwm1}")
     
-    duty_pwm0 = (high_count_pwm0 / 1000) * 100
-    duty_pwm1 = (high_count_pwm1 / 1000) * 100
+    duty_pwm0 = (high_count_pwm0 / samples) * 100
+    duty_pwm1 = (high_count_pwm1 / samples) * 100
     
     cocotb.log.info(f"[TEST] PWM0 duty cycle: {duty_pwm0:.1f}%")
     cocotb.log.info(f"[TEST] PWM1 duty cycle: {duty_pwm1:.1f}%")
