@@ -1,0 +1,4 @@
+name: pwm_duty_sweep_test
+testbench: pwm_duty_sweep_test.py
+firmware: pwm_duty_sweep_test.c
+description: Test PWM duty cycle sweep through multiple values (10%, 25%, 50%, 75%, 90%)

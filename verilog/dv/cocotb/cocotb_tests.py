@@ -8,3 +8,4 @@ from gpio_test.gpio_test import gpio_test
 from pwm_test.pwm_test import pwm_test
 from pwm_simple_test.pwm_simple_test import pwm_simple_test
 from pwm_four_channel_test.pwm_four_channel_test import pwm_four_channel_test
+from pwm_duty_sweep_test.pwm_duty_sweep_test import pwm_duty_sweep_test
