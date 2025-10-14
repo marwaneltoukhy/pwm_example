@@ -22,16 +22,15 @@ async def pwm_simple_test(dut):
     
     for i in range(5000):
         await cocotb.triggers.ClockCycles(caravelEnv.clk, 1)
-        pwm0_val = dut.uut.mprj.pwm0_0.value.integer
+        gpio_val = caravelEnv.monitor_gpio(0, 0).integer
         
-        if pwm0_val == 1:
+        if gpio_val == 1:
             pwm0_high_count += 1
         else:
             pwm0_low_count += 1
     
-    cocotb.log.info(f"[TEST] PWM0 output: {dut.uut.mprj.pwm0_0.value}")
-    cocotb.log.info(f"[TEST] io_out[0]: {dut.uut.mprj.io_out[0].value}")
-    cocotb.log.info(f"[TEST] io_oeb[0]: {dut.uut.mprj.io_oeb[0].value}")
+    gpio_val = caravelEnv.monitor_gpio(0, 0).integer
+    cocotb.log.info(f"[TEST] GPIO[0] (PWM0): {gpio_val}")
     cocotb.log.info(f"[TEST] PWM0 high count: {pwm0_high_count}, low count: {pwm0_low_count}")
     
     if pwm0_high_count + pwm0_low_count > 0:
