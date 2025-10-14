@@ -40,6 +40,7 @@ void main(void) {
     
     for(int i = 0; i < 5; i++) {
         CF_TMR32_setCMPX(PWM0_BASE_ADDR, duty_cycles[i]);
+        CF_TMR32_restart(PWM0_BASE_ADDR);
         
         ManagmentGpio_write(0);
         delay(100);
