@@ -110,14 +110,20 @@ module wishbone_bus_splitter #(
         m_wb_ack = 0;
         m_wb_err = 0;
 
-        s_wb_cyc_0 = 0; s_wb_stb_0 = 0; s_wb_adr_0 = 0; s_wb_dat_w_0 = 0; s_wb_we_0 = 0; s_wb_sel_0 = 0;
-        s_wb_cyc_1 = 0; s_wb_stb_1 = 0; s_wb_adr_1 = 0; s_wb_dat_w_1 = 0; s_wb_we_1 = 0; s_wb_sel_1 = 0;
-        s_wb_cyc_2 = 0; s_wb_stb_2 = 0; s_wb_adr_2 = 0; s_wb_dat_w_2 = 0; s_wb_we_2 = 0; s_wb_sel_2 = 0;
-        s_wb_cyc_3 = 0; s_wb_stb_3 = 0; s_wb_adr_3 = 0; s_wb_dat_w_3 = 0; s_wb_we_3 = 0; s_wb_sel_3 = 0;
+        // CYC must be routed to ALL slaves (Wishbone Golden Rule)
+        s_wb_cyc_0 = m_wb_cyc;
+        s_wb_cyc_1 = m_wb_cyc;
+        s_wb_cyc_2 = m_wb_cyc;
+        s_wb_cyc_3 = m_wb_cyc;
+
+        // STB, address, data, and control signals default to inactive/zero
+        s_wb_stb_0 = 0; s_wb_adr_0 = 0; s_wb_dat_w_0 = 0; s_wb_we_0 = 0; s_wb_sel_0 = 0;
+        s_wb_stb_1 = 0; s_wb_adr_1 = 0; s_wb_dat_w_1 = 0; s_wb_we_1 = 0; s_wb_sel_1 = 0;
+        s_wb_stb_2 = 0; s_wb_adr_2 = 0; s_wb_dat_w_2 = 0; s_wb_we_2 = 0; s_wb_sel_2 = 0;
+        s_wb_stb_3 = 0; s_wb_adr_3 = 0; s_wb_dat_w_3 = 0; s_wb_we_3 = 0; s_wb_sel_3 = 0;
 
         case (selected)
             2'b00: begin
-                s_wb_cyc_0 = m_wb_cyc;
                 s_wb_stb_0 = m_wb_stb;
                 s_wb_adr_0 = m_wb_adr;
                 s_wb_dat_w_0 = m_wb_dat_w;
@@ -128,7 +134,6 @@ module wishbone_bus_splitter #(
                 m_wb_err = s_wb_err_0;
             end
             2'b01: begin
-                s_wb_cyc_1 = m_wb_cyc;
                 s_wb_stb_1 = m_wb_stb;
                 s_wb_adr_1 = m_wb_adr;
                 s_wb_dat_w_1 = m_wb_dat_w;
@@ -139,7 +144,6 @@ module wishbone_bus_splitter #(
                 m_wb_err = s_wb_err_1;
             end
             2'b10: begin
-                s_wb_cyc_2 = m_wb_cyc;
                 s_wb_stb_2 = m_wb_stb;
                 s_wb_adr_2 = m_wb_adr;
                 s_wb_dat_w_2 = m_wb_dat_w;
@@ -150,7 +154,6 @@ module wishbone_bus_splitter #(
                 m_wb_err = s_wb_err_2;
             end
             2'b11: begin
-                s_wb_cyc_3 = m_wb_cyc;
                 s_wb_stb_3 = m_wb_stb;
                 s_wb_adr_3 = m_wb_adr;
                 s_wb_dat_w_3 = m_wb_dat_w;
@@ -161,7 +164,7 @@ module wishbone_bus_splitter #(
                 m_wb_err = s_wb_err_3;
             end
             default: begin
-                m_wb_err = 1'b1;  // Trigger error if address is out of range
+                m_wb_err = m_wb_cyc & m_wb_stb;
             end
         endcase
     end
