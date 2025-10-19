@@ -14,7 +14,9 @@
 # SPDX-License-Identifier: Apache-2.0
 
 # Caravel user project includes
--v $(USER_PROJECT_VERILOG)/rtl/user_project_wrapper.v	     
--v $(USER_PROJECT_VERILOG)/rtl/user_proj_example.v
+-v $(USER_PROJECT_VERILOG)/rtl/user_project_wrapper.v
+-v $(USER_PROJECT_VERILOG)/rtl/wb_bus_splitter.v
 
- 
+# CF_TMR32 IP files
+-v /nc/ip/CF_TMR32/v2.1.0-nc/hdl/rtl/CF_TMR32.v
+-v /nc/ip/CF_TMR32/v2.1.0-nc/hdl/rtl/bus_wrappers/CF_TMR32_WB.v
