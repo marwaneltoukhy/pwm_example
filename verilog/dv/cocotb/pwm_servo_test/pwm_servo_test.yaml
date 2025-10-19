@@ -1,0 +1,9 @@
+---
+test:
+  name: pwm_servo_test
+  description: "Test PWM servo control functionality with 4 PWM channels"
+  timeout: 30000000
+  rtl:
+    sim: RTL
+  gl:
+    sim: GL
