@@ -54,22 +54,15 @@ async def pwm_servo_test(dut):
         
         return high_time
     
-    async def verify_pwm_range(pin_num, pwm_name, expected_min, expected_max, num_samples=2):
+    async def verify_pwm_range(pin_num, pwm_name, expected_min, expected_max):
         await measure_pwm_pulse(pin_num)
         
-        pulse_widths = []
-        for i in range(num_samples):
-            pulse_width = await measure_pwm_pulse(pin_num)
-            if pulse_width > 0:
-                pulse_widths.append(pulse_width)
-                cocotb.log.info(f"[TEST] {pwm_name} pulse width sample {i+1}: {pulse_width} cycles")
-        
-        if pulse_widths:
-            avg_pulse_width = sum(pulse_widths) / len(pulse_widths)
-            cocotb.log.info(f"[TEST] {pwm_name} average pulse width: {avg_pulse_width:.0f} cycles")
+        pulse_width = await measure_pwm_pulse(pin_num)
+        if pulse_width > 0:
+            cocotb.log.info(f"[TEST] {pwm_name} pulse width: {pulse_width} cycles")
             cocotb.log.info(f"[TEST] Expected range: {expected_min} - {expected_max} cycles")
             
-            if expected_min <= avg_pulse_width <= expected_max:
+            if expected_min <= pulse_width <= expected_max:
                 cocotb.log.info(f"[TEST] {pwm_name} pulse width PASSED")
                 return True
             else:
