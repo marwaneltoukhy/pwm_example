@@ -74,28 +74,28 @@ async def pwm_servo_test(dut):
     
     cocotb.log.info("[TEST] Phase 1: Testing neutral position (18000 ticks ~1500us)")
     await caravelEnv.wait_mgmt_gpio(0)
-    await ClockCycles(caravelEnv.clk, 10000)
+    # await ClockCycles(caravelEnv.clk, 10000)
     
     result1 = await verify_pwm_range(0, "PWM0", 16000, 20000)
     result2 = await verify_pwm_range(1, "PWM1", 16000, 20000)
     
     cocotb.log.info("[TEST] Phase 2: Testing minimum position (6000 ticks ~500us)")
     await caravelEnv.wait_mgmt_gpio(1)
-    await ClockCycles(caravelEnv.clk, 10000)
+    # await ClockCycles(caravelEnv.clk, 10000)
     
     result3 = await verify_pwm_range(0, "PWM0", 4000, 8000)
     result4 = await verify_pwm_range(1, "PWM1", 4000, 8000)
     
     cocotb.log.info("[TEST] Phase 3: Testing neutral position again (18000 ticks ~1500us)")
     await caravelEnv.wait_mgmt_gpio(0)
-    await ClockCycles(caravelEnv.clk, 10000)
+    # await ClockCycles(caravelEnv.clk, 10000)
     
     result5 = await verify_pwm_range(0, "PWM0", 16000, 20000)
     result6 = await verify_pwm_range(1, "PWM1", 16000, 20000)
     
     cocotb.log.info("[TEST] Phase 4: Testing maximum position (30000 ticks ~2500us)")
     await caravelEnv.wait_mgmt_gpio(1)
-    await ClockCycles(caravelEnv.clk, 10000)
+    # await ClockCycles(caravelEnv.clk, 10000)
     
     result7 = await verify_pwm_range(0, "PWM0", 28000, 32000)
     result8 = await verify_pwm_range(1, "PWM1", 28000, 32000)
