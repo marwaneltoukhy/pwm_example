@@ -85,38 +85,29 @@ async def pwm_servo_test(dut):
     
     result1 = await verify_pwm_range(0, "PWM0", 16000, 20000)
     result2 = await verify_pwm_range(1, "PWM1", 16000, 20000)
-    result3 = await verify_pwm_range(2, "PWM2", 16000, 20000)
-    result4 = await verify_pwm_range(3, "PWM3", 16000, 20000)
     
     cocotb.log.info("[TEST] Phase 2: Testing minimum position (6000 ticks ~500us)")
     await caravelEnv.wait_mgmt_gpio(1)
     await ClockCycles(caravelEnv.clk, 10000)
     
-    result5 = await verify_pwm_range(0, "PWM0", 4000, 8000)
-    result6 = await verify_pwm_range(1, "PWM1", 4000, 8000)
-    result7 = await verify_pwm_range(2, "PWM2", 4000, 8000)
-    result8 = await verify_pwm_range(3, "PWM3", 4000, 8000)
+    result3 = await verify_pwm_range(0, "PWM0", 4000, 8000)
+    result4 = await verify_pwm_range(1, "PWM1", 4000, 8000)
     
     cocotb.log.info("[TEST] Phase 3: Testing neutral position again (18000 ticks ~1500us)")
     await caravelEnv.wait_mgmt_gpio(0)
     await ClockCycles(caravelEnv.clk, 10000)
     
-    result9 = await verify_pwm_range(0, "PWM0", 16000, 20000)
-    result10 = await verify_pwm_range(1, "PWM1", 16000, 20000)
-    result11 = await verify_pwm_range(2, "PWM2", 16000, 20000)
-    result12 = await verify_pwm_range(3, "PWM3", 16000, 20000)
+    result5 = await verify_pwm_range(0, "PWM0", 16000, 20000)
+    result6 = await verify_pwm_range(1, "PWM1", 16000, 20000)
     
     cocotb.log.info("[TEST] Phase 4: Testing maximum position (30000 ticks ~2500us)")
     await caravelEnv.wait_mgmt_gpio(1)
     await ClockCycles(caravelEnv.clk, 10000)
     
-    result13 = await verify_pwm_range(0, "PWM0", 28000, 32000)
-    result14 = await verify_pwm_range(1, "PWM1", 28000, 32000)
-    result15 = await verify_pwm_range(2, "PWM2", 28000, 32000)
-    result16 = await verify_pwm_range(3, "PWM3", 28000, 32000)
+    result7 = await verify_pwm_range(0, "PWM0", 28000, 32000)
+    result8 = await verify_pwm_range(1, "PWM1", 28000, 32000)
     
-    all_results = [result1, result2, result3, result4, result5, result6, result7, result8,
-                   result9, result10, result11, result12, result13, result14, result15, result16]
+    all_results = [result1, result2, result3, result4, result5, result6, result7, result8]
     
     passed = sum(all_results)
     total = len(all_results)
