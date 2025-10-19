@@ -17,6 +17,9 @@
 -v $(USER_PROJECT_VERILOG)/rtl/user_project_wrapper.v
 -v $(USER_PROJECT_VERILOG)/rtl/wb_bus_splitter.v
 
+# CF_IP_UTIL (required by CF_TMR32)
+-v /nc/ip/CF_IP_UTIL/v1.0.0/hdl/cf_util_lib.v
+
 # CF_TMR32 IP files
 -v /nc/ip/CF_TMR32/v2.1.0-nc/hdl/rtl/CF_TMR32.v
 -v /nc/ip/CF_TMR32/v2.1.0-nc/hdl/rtl/bus_wrappers/CF_TMR32_WB.v

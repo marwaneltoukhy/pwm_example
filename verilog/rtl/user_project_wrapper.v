@@ -104,6 +104,9 @@ module user_project_wrapper #(
     wire pwm_fault_1 = 1'b0;
     wire pwm_fault_2 = 1'b0;
     wire pwm_fault_3 = 1'b0;
+    
+    // Wishbone error signal (not used by Caravel)
+    wire wbs_err_internal;
 
     // Define Base Addresses for CF_TMR32
     localparam [BITS-1:0] BASE_ADDR_0 = 32'h3000_0000;  // PWM 0
@@ -125,7 +128,7 @@ module user_project_wrapper #(
         .m_wb_cyc(wbs_cyc_i),
         .m_wb_stb(wbs_stb_i),
         .m_wb_ack(wbs_ack_o),
-        .m_wb_err(wbs_err_o),
+        .m_wb_err(wbs_err_internal),
         .s_wb_adr_0(s_wb_adr_0),
         .s_wb_dat_w_0(s_wb_dat_w_0),
         .s_wb_dat_r_0(s_wb_dat_r_0),
