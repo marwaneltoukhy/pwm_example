@@ -29,45 +29,45 @@ void config_pwm_ticks(int p0_ticks, int p1_ticks, int p2_ticks, int p3_ticks)
     const int enable = 0b1101;
     const int match  = 0b000010000110;
 
-    USER_writeWord(CSR_PWM0_BASE + 0x14L, disable);
-    USER_writeWord(CSR_PWM0_BASE + 0x04L, reload);
-    USER_writeWord(CSR_PWM0_BASE + 0x08L, prescale);
-    USER_writeWord(CSR_PWM0_BASE + 0x18L, config);
-    USER_writeWord(CSR_PWM0_BASE + 0x0cL, p0_ticks);
-    USER_writeWord(CSR_PWM0_BASE + 0x10L, cmpy_value);
-    USER_writeWord(CSR_PWM0_BASE + 0x1cL, match);
-    USER_writeWord(CSR_PWM0_BASE + 0x20L, match);
-    USER_writeWord(CSR_PWM0_BASE + 0x14L, enable);
+    USER_writeWord(disable, 0x14L / 4);
+    USER_writeWord(reload, 0x04L / 4);
+    USER_writeWord(prescale, 0x08L / 4);
+    USER_writeWord(config, 0x18L / 4);
+    USER_writeWord(p0_ticks, 0x0cL / 4);
+    USER_writeWord(cmpy_value, 0x10L / 4);
+    USER_writeWord(match, 0x1cL / 4);
+    USER_writeWord(match, 0x20L / 4);
+    USER_writeWord(enable, 0x14L / 4);
 
-    USER_writeWord(CSR_PWM1_BASE + 0x14L, disable);
-    USER_writeWord(CSR_PWM1_BASE + 0x04L, reload);
-    USER_writeWord(CSR_PWM1_BASE + 0x08L, prescale);
-    USER_writeWord(CSR_PWM1_BASE + 0x18L, config);
-    USER_writeWord(CSR_PWM1_BASE + 0x0cL, p1_ticks);
-    USER_writeWord(CSR_PWM1_BASE + 0x10L, cmpy_value);
-    USER_writeWord(CSR_PWM1_BASE + 0x1cL, match);
-    USER_writeWord(CSR_PWM1_BASE + 0x20L, match);
-    USER_writeWord(CSR_PWM1_BASE + 0x14L, enable);
+    USER_writeWord(disable, 0x10000 / 4 + 0x14L / 4);
+    USER_writeWord(reload, 0x10000 / 4 + 0x04L / 4);
+    USER_writeWord(prescale, 0x10000 / 4 + 0x08L / 4);
+    USER_writeWord(config, 0x10000 / 4 + 0x18L / 4);
+    USER_writeWord(p1_ticks, 0x10000 / 4 + 0x0cL / 4);
+    USER_writeWord(cmpy_value, 0x10000 / 4 + 0x10L / 4);
+    USER_writeWord(match, 0x10000 / 4 + 0x1cL / 4);
+    USER_writeWord(match, 0x10000 / 4 + 0x20L / 4);
+    USER_writeWord(enable, 0x10000 / 4 + 0x14L / 4);
 
-    USER_writeWord(CSR_PWM2_BASE + 0x14L, disable);
-    USER_writeWord(CSR_PWM2_BASE + 0x04L, reload);
-    USER_writeWord(CSR_PWM2_BASE + 0x08L, prescale);
-    USER_writeWord(CSR_PWM2_BASE + 0x18L, config);
-    USER_writeWord(CSR_PWM2_BASE + 0x0cL, p2_ticks);
-    USER_writeWord(CSR_PWM2_BASE + 0x10L, cmpy_value);
-    USER_writeWord(CSR_PWM2_BASE + 0x1cL, match);
-    USER_writeWord(CSR_PWM2_BASE + 0x20L, match);
-    USER_writeWord(CSR_PWM2_BASE + 0x14L, enable);
+    USER_writeWord(disable, 0x20000 / 4 + 0x14L / 4);
+    USER_writeWord(reload, 0x20000 / 4 + 0x04L / 4);
+    USER_writeWord(prescale, 0x20000 / 4 + 0x08L / 4);
+    USER_writeWord(config, 0x20000 / 4 + 0x18L / 4);
+    USER_writeWord(p2_ticks, 0x20000 / 4 + 0x0cL / 4);
+    USER_writeWord(cmpy_value, 0x20000 / 4 + 0x10L / 4);
+    USER_writeWord(match, 0x20000 / 4 + 0x1cL / 4);
+    USER_writeWord(match, 0x20000 / 4 + 0x20L / 4);
+    USER_writeWord(enable, 0x20000 / 4 + 0x14L / 4);
 
-    USER_writeWord(CSR_PWM3_BASE + 0x14L, disable);
-    USER_writeWord(CSR_PWM3_BASE + 0x04L, reload);
-    USER_writeWord(CSR_PWM3_BASE + 0x08L, prescale);
-    USER_writeWord(CSR_PWM3_BASE + 0x18L, config);
-    USER_writeWord(CSR_PWM3_BASE + 0x0cL, p3_ticks);
-    USER_writeWord(CSR_PWM3_BASE + 0x10L, cmpy_value);
-    USER_writeWord(CSR_PWM3_BASE + 0x1cL, match);
-    USER_writeWord(CSR_PWM3_BASE + 0x20L, match);
-    USER_writeWord(CSR_PWM3_BASE + 0x14L, enable);
+    USER_writeWord(disable, 0x30000 / 4 + 0x14L / 4);
+    USER_writeWord(reload, 0x30000 / 4 + 0x04L / 4);
+    USER_writeWord(prescale, 0x30000 / 4 + 0x08L / 4);
+    USER_writeWord(config, 0x30000 / 4 + 0x18L / 4);
+    USER_writeWord(p3_ticks, 0x30000 / 4 + 0x0cL / 4);
+    USER_writeWord(cmpy_value, 0x30000 / 4 + 0x10L / 4);
+    USER_writeWord(match, 0x30000 / 4 + 0x1cL / 4);
+    USER_writeWord(match, 0x30000 / 4 + 0x20L / 4);
+    USER_writeWord(enable, 0x30000 / 4 + 0x14L / 4);
 }
 
 void main()
@@ -88,19 +88,19 @@ void main()
     
     ManagmentGpio_write(0);
     config_pwm_ticks(18000, 18000, 18000, 18000);
-    delay_cyc(_DELAY_VALUE);
+    dummyDelay(_DELAY_VALUE);
     
     ManagmentGpio_write(1);
     config_pwm_ticks(6000, 6000, 6000, 6000);
-    delay_cyc(_DELAY_VALUE);
+    dummyDelay(_DELAY_VALUE);
     
     ManagmentGpio_write(0);
     config_pwm_ticks(18000, 18000, 18000, 18000);
-    delay_cyc(_DELAY_VALUE);
+    dummyDelay(_DELAY_VALUE);
     
     ManagmentGpio_write(1);
     config_pwm_ticks(30000, 30000, 30000, 30000);
-    delay_cyc(_DELAY_VALUE);
+    dummyDelay(_DELAY_VALUE);
     
     ManagmentGpio_write(0);
 }
