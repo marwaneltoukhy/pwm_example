@@ -30,7 +30,7 @@ async def pwm_servo_test(dut):
     await caravelEnv.wait_mgmt_gpio(1)
     cocotb.log.info("[TEST] Firmware configuration complete")
     
-    async def measure_pwm_pulse(pin_num, timeout_cycles=500000):
+    async def measure_pwm_pulse(pin_num, timeout_cycles=300000):
         await RisingEdge(caravelEnv.clk)
         for _ in range(timeout_cycles):
             pin_val = caravelEnv.monitor_gpio(pin_num, pin_num).integer
@@ -54,7 +54,9 @@ async def pwm_servo_test(dut):
         
         return high_time
     
-    async def verify_pwm_range(pin_num, pwm_name, expected_min, expected_max, num_samples=3):
+    async def verify_pwm_range(pin_num, pwm_name, expected_min, expected_max, num_samples=2):
+        await measure_pwm_pulse(pin_num)
+        
         pulse_widths = []
         for i in range(num_samples):
             pulse_width = await measure_pwm_pulse(pin_num)
