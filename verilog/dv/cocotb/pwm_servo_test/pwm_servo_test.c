@@ -84,7 +84,7 @@ void main()
     
     ManagmentGpio_write(1);
     
-    const int _DELAY_VALUE = 3000000;
+    const int _DELAY_VALUE = 500000;
     
     ManagmentGpio_write(0);
     config_pwm_ticks(18000, 18000, 18000, 18000);
