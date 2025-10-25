@@ -16,6 +16,11 @@
 # Caravel user project includes
 -v $(USER_PROJECT_VERILOG)/rtl/user_project_wrapper.v
 -v $(USER_PROJECT_VERILOG)/rtl/user_project.v
+-v $(USER_PROJECT_VERILOG)/rtl/wishbone_bus_splitter.v
 -v $(USER_PROJECT_VERILOG)/../ip/CF_TMR32/hdl/rtl/bus_wrappers/CF_TMR32_WB.v
 -v $(USER_PROJECT_VERILOG)/../ip/CF_TMR32/hdl/rtl/CF_TMR32.v
 -v $(USER_PROJECT_VERILOG)/../ip/CF_IP_UTIL/hdl/cf_util_lib.v
+-v $(USER_PROJECT_VERILOG)/../ip/CF_SRAM_1024x32/hdl/CF_SRAM_1024x32.v
+-v $(USER_PROJECT_VERILOG)/../ip/CF_SRAM_1024x32/hdl/controllers/ram_controller_wb.v
+-v $(USER_PROJECT_VERILOG)/../ip/CF_SRAM_1024x32/hdl/bus_wrapper/CF_SRAM_1024x32_wb_wrapper.v
+-v $(USER_PROJECT_VERILOG)/../ip/CF_SRAM_1024x32/hdl/beh_models/CF_SRAM_1024x32.tt_180V_25C.v

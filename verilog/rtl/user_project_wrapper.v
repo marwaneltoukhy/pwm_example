@@ -84,27 +84,34 @@ module user_project_wrapper #(
 
 user_project mprj (
 `ifdef USE_POWER_PINS
-    .vccd1(vccd1),
-    .vssd1(vssd1),
+    .VPWR(vccd2),
+    .VGND(vssd2),
 `endif
 
     .wb_clk_i(wb_clk_i),
     .wb_rst_i(wb_rst_i),
 
-    .wbs_cyc_i(wbs_cyc_i),
     .wbs_stb_i(wbs_stb_i),
+    .wbs_cyc_i(wbs_cyc_i),
     .wbs_we_i(wbs_we_i),
     .wbs_sel_i(wbs_sel_i),
-    .wbs_adr_i(wbs_adr_i),
     .wbs_dat_i(wbs_dat_i),
+    .wbs_adr_i(wbs_adr_i),
     .wbs_ack_o(wbs_ack_o),
     .wbs_dat_o(wbs_dat_o),
 
-    .la_data_out(la_data_out),
-    .io_out(io_out),
-    .io_oeb(io_oeb),
-    .user_irq(user_irq)
+    .user_irq(user_irq),
+
+    .pwm_out({io_out[15:8]})
 );
+
+assign io_oeb[15:8] = 8'b00000000;
+assign io_out[37:16] = 22'b0;
+assign io_oeb[37:16] = 22'b0;
+assign io_out[7:0] = 8'b0;
+assign io_oeb[7:0] = 8'b0;
+
+assign la_data_out = 128'b0;
 
 endmodule	// user_project_wrapper
 
